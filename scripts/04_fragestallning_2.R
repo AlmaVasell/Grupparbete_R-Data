@@ -1,6 +1,6 @@
 library(tidyverse)
 source("scripts/02_clean_data.R")
-#Delar upp datan i de olika segmenten
+
 #Räknar antal,genomsnitt och median
 #Beräknar hur stort varje segment är
 #Sorterar efter högst värde
@@ -13,11 +13,19 @@ data_clean_customer_segment <- data_clean %>%
   ) %>% mutate(share = count/ sum(count)) %>%
   arrange(desc(avg_order_value))
 
-#Här räknar jag skillnader mellan de olika segmenten i %
-data_clean_customer_segment %>%
-  mutate(
-    pct_diff = (avg_order_value / min(avg_order_value) - 1) * 100
-  )
+
+#Här hämtar jag in de genomsnittliga ordervärdena för segment
+sb <- data_clean_customer_segment$avg_order_value[1]
+consumer <- data_clean_customer_segment$avg_order_value[2]
+corporate <- data_clean_customer_segment$avg_order_value[3]
+
+#Här räknar jag ut den procentuella skillnaden mellan segment
+
+(sb / corporate - 1) * 100      # Small Business vs Corporate
+(consumer / corporate - 1) * 100 # Consumer vs Corporate
+(sb / consumer - 1) * 100       # Small Business vs Consumer
+
+
 
 #Skapar stapeldiagram över ordervärde per kundsegment
 #Sorterar segmenten från lägst till högst
@@ -32,17 +40,6 @@ ggplot(data_clean_customer_segment,
     y = "Genomsnittligt ordervärde"
   ) +
   theme_minimal() 
-
-#Grafen visar att ordervärdet skiljer sig mellan kundsegmenten, där vissa
-#segment har högre genomsnittliga köp än andra. Detta indikerar att
-#kundsegment påverkar hur mycket kunder handlar för
-
-#Vi kan även konstatera att Small Business har högst order värde och ligger
-#cirka 47% över Corporate medan Consumer ligger på 37% över. Detta visar på
-#att skillnader mellan kundsegmenten är tydliga och att vissa segment tenderar
-#att göra större köp. Vi bör även ha i åtanke att det finns 529 observationer
-#på Consumer, 302 för Small Business och 169 för Corporate.
-
   
 
 
