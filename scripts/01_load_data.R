@@ -32,3 +32,4 @@ for (col in cols) {
 sort(unique(data_raw$city))
 sort(unique(data_raw$payment_method))
 sort(unique(data_raw$campaign_source))
+
