@@ -1,0 +1,295 @@
+---
+title: "rapport"
+format: html
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+```{r}
+#| include: false
+library(tidyverse)
+source("scripts/03_fragestallning_1.R")
+source("scripts/04_fragestallning_2.R")
+source("scripts/05_fragestallning_3.R")
+source("scripts/06_fragestallning_4.R")
+```
+
+# **Case: Analysera E-handel**
+
+#### **Mål och syfte:**
+
+Företaget vill få bättre förståelse för verksamheten och vill använda
+data som underlag för beslut. Vi ska genomföra en tydlig dataanalys i R
+och använda datat för att besvara ett antal relevanta frågeställningar.
+Arbetet innehåller följande fem moment:
+
+-   Dataförståelse
+-   Datastädning och förberedelse
+-   Statistiska sammanfattningar
+-   Visualiseringar
+-   Tolkningar och slutsatser
+
+#### **Dataförståelse**
+
+Datasetet innehåller **1 000 observationer** och **16 variabler**. Datat
+omfattar information om ordrar, kunder, produkter, rabatter, leveranser
+och returer.
+
+**Kategoriska variabler**: order_id, order_date, customer_id,
+customer_segment, customer_type, region, city, product_category,
+product_subcategory, payment_method, campaign_source, returned
+
+**Numeriska variabler**: quantity, unit_price, discount_pct,
+shipping_days
+
+**Datatyper som behöver justeras**
+
+-   order_date konverteras från text till datumformat
+
+-   returned omvandlas till logisk variabel (TRUE/FALSE)
+
+**Saknade värden**
+
+-   **Explicita (NA)**:
+
+    -   discount_pct (27 st) - tolkas som 0
+
+    -   shipping_days (22 st) - lämnas som NA
+
+-   **Implicita (tomma värden)**:
+
+    -   city - omvandlas till NA
+
+    -   payment_method - omvandlas till NA
+
+    -   campaign_source - omvandlas till NA
+
+**Datakvalitet**
+
+Flera kategoriska variabler innehåller inkonsekvenser, t.ex.:
+
+-   stora/små bokstäver ("Stockholm", "stockholm")
+
+-   extra mellanslag ("Gothenburg ")
+
+-   olika stavningar ("PayPal", "Paypal")
+
+Dessa behöver standardiseras för korrekt analys.
+
+**Viktiga variabler för analys**
+
+-   **Försäljning**: quantity, unit_price, discount_pct
+
+-   **Kund**: customer_segment, customer_type
+
+-   **Returer**: returned
+
+-   **Leverans**: shipping_days
+
+-   **Produkt**: product_category
+
+-   **Marknadsföring**: campaign_source
+
+#### **Datastädning & förberedelse**
+
+Rådatan städas enligt föregående avsnitts upptäckter och
+rekommendationer. Detta görs med hjälp av tidyverse-paketet tillsammans
+med Feature Engineering i en och samma pipe.
+
+**Skapandet av nya variabler (Feature Engineering)**
+
+Flertalet nya variabler skapas för att möjliggöra olika analyser.
+
+**Ekonomiska nyckeltal**
+
+-   **order_value**: bruttovärde (kvantitet \* pris)
+
+-   **price_after_discount**: pris per enhet efter avdragen rabatt
+
+-   **order_value_net**: det faktiska totalbeloppet efter rabatt
+
+**Kategorisering**
+
+-   **discount_group**: grupperar rabatter i kategorierna ”Ingen
+    rabatt”, ”Låg”, ”Medium” och ”Hög” baserat på procentsatsen
+
+-   **delivery_category**: delar upp leveranstiden i ”Snabb” (≤ 2 dagar)
+    eller ”Långsam”
+
+**Tidsdimension**
+
+-   **order_month**: extraherar år och månad för att kunna följa trender
+    över tid
+
+Den transformerade datan sparas i en ny variabel: data_clean
+
+#### **Valda frågeställningar**
+
+Vi har valt ut tre stycken frågeställningar från den givna listan samt
+en egenformulerad.
+
+1.  Vilka produktkategorier verkar driva högst försäljning?
+2.  Hur skiljer sig ordervärde mellan olika kundsegment?
+3.  Finns det samband mellan rabatt och ordervärde?
+4.  Vilka produktkategorier har högst försäljning hos de olika
+    kundsegmenten? (egen frågeställning)
+
+Nedan förljer en sammanfattning för varje vald frågeställning som
+inkluderar metod, resultat samt slutsatser och eventuella begränsningar.
+
+#### **1. Vilka produktkategorier verkar driva högst försäljning?**
+
+För att besvara frågeställningen analyserades försäljningen per
+produktkategori. Ordervärdet beräknades baserat på antal, styckpris och
+rabatt, och därefter summerades försäljningen för varje kategori.
+
+```{r}
+sales_by_category
+sales_by_category_viz
+orders_by_category_viz
+```
+
+**Figur 1** visar den totala försäljningen per produktkategori.
+
+-   Figuren visar tydligt att Electronics är den kategori som genererar
+    mest försäljning, med en tydlig marginal till övriga kategorier.
+
+**Figur 2** visar antal ordrar per produktkategori.
+
+-   Denna figur ger ytterligare förståelse för hur försäljningen
+    uppstår. Kategorier som **Fashion** har många ordrar men lägre total
+    försäljning, medan **Electronics** kombinerar både högt ordervärde
+    och relativt många ordrar.
+
+Sammanfattningsvis visar analysen att **Electronics** är den
+produktkategori som driver högst försäljning. Detta beror sannolikt på
+en kombination av höga ordervärden och en relativt hög efterfrågan.
+
+Analysen visar också att olika kategorier bidrar till försäljningen på
+olika sätt. Vissa kategorier drivs främst av höga priser per order,
+medan andra drivs av ett stort antal ordrar.
+
+Resultaten kan användas som underlag för beslut kring exempelvis
+marknadsföring, lagerhållning och produktstrategi.
+
+En begränsning i analysen är att den inte tar hänsyn till kostnader
+eller vinstmarginaler, vilket innebär att hög försäljning inte
+nödvändigtvis motsvarar hög lönsamhet.
+
+#### **2. Hur skiljer sig ordervärde mellan olika kundsegment?**
+
+Skapade en sammanfattning av genomsnittligt och medianordervärde för
+varje kundsegment, samt antal ordrar och andel av totalen. Detta för att
+få en tydlig överblick över hur ordervärdet varierar mellan segmenten
+och hur stora de är i relation till varandra.
+
+```{r}
+data_clean_customer_segment
+order_value_by_segment_viz
+```
+
+Stapeldiagrammet visar det genomsnittliga ordervärdet per kundsegment.
+Diagrammet sorterades från lägst till högst för att tydliggöra
+skillnaderna mellan segmenten och göra det enkelt att jämföra deras
+relativa nivåer.
+
+-   Small Business har det högsta genomsnittliga ordervärdet, följt av
+    Consumer, medan Corporate ligger tydligt lägst.
+
+-   Skillnaden mellan högsta och lägsta segmentet är cirka 46,86%.
+
+Att Small Business har det högsta ordervärdet är inte oväntat, då mindre
+företag ofta gör större inköp per order jämfört med privatkunder.
+
+Antalet observationer skiljer sig mellan segmenten, där Consumer står
+för den största andelen medan Corporate är betydligt mindre. Detta
+innebär att resultaten i högre grad påverkas av Consumer-segmentet, och
+att jämförelser mellan segment bör tolkas med viss försiktighet.
+
+#### **3. Finns det samband mellan rabatt och ordervärde?**
+
+Skapade en sammanfattning över ordervärde och rabatt. Sammanfattningen
+svarar på frågor som vad är det genomsnittliga order/ rabattvärdet? Vad
+ligger medianen på i respektive kolumner? Och vad är det högsta rabatt/
+ordervärdet?
+
+```{r}
+#| message: false
+AOV_summary
+AOV_discount_viz
+```
+
+Figuren visar ordervärde på x-axeln och rabatt på y-axeln, samt en
+trendlinje för att tydligare se om det verkar finnas ett samband.
+
+Av vår figur kan vi inte se något tydligt linjärt samband mellan
+ordervärde och rabattmängd. Scatterplotten visar en plan linje vilket
+indikerar att ett högre ordervärde inte resulterar i en högre rabatt.
+Vid varje ordervärde(framförallt låga) finns det en stor variation i hur
+mycket rabatt kunderna fått och det går inte att se något tydligt
+mönster, vilket ger stöd åt tesen att det inte finns något samband
+mellan enbart dessa två variabler.
+
+Fler variabler krävs för att förstår vad som påverkar rabattvärde.
+Extremvärden ger även en skev bild av meddelvärdet som inte motsvarar
+kunderas beteende. (Medelvärde -338, Median -165)
+
+#### **4. Vilka produktkategorier har högst försäljning hos de olika kundsegmenten?**
+
+Skapade en sammanfattning av den totala nettoförsäljningen för varje
+produktkategori och kundsegment, tillsammans med antalet ordar, median
+och genomsnittligt ordervärde för att få en överblick och kunna jämföra
+försäljningen mellan de olika kategorierna.
+
+```{r}
+sales_summary_04
+total_sales_viz_stacked
+total_sales_viz
+```
+
+Den första figuren visar den totala försäljningen för varje kundsegment,
+uppdelat i produktkategorier. Den andra figuren visar andelen av
+försäljning per produktkategori och kundsegment, från 0-100%, och ger
+också en tydlig bild hur de förhåller sig till varandra.
+
+-   **Electronics** är den klart starkaste kategorin bland alla typer av
+    kunder.
+
+-   Det motsatta gäller **Beauty**, det är den klart minsta kategorin.
+
+-   Tydligaste skillnaderna ses bland **Home**- och
+    **Fashion-produkter** mellan **Small Business** och **Corporate**.
+
+-   **Consumer** står för den absolut största totala försäljningen,
+    medan **Corporate** står för en betydligt mindre del.
+
+Analysen kan användas för att optimera riktad marknadsföring beroende på
+typ av kund, men som i tidigare analys säger den inget om eventuell
+vinstmarginal.
+
+#### **Slutsats och sammanfattning**
+
+Med hjälp av våra fyra frågeställningar kunde vi få en tydlig inblick i
+köpmönster hos olika typer av kunder.
+
+-   **Electronics** har högst försäljning med stor marginal, följt av
+    **Home** och **Sports**.
+
+-   **Electronics** är också den klart starkaste kategorin bland alla
+    typer av kunder. Tydligaste skillnaderna ses bland **Home**- och
+    **Fashion-produkter** mellan **Small Business** och **Corporate**.
+
+-   **Small Business** har det högsta genomsnittliga ordervärdet, följt
+    av **Consumer**, medan **Corporate** ligger tydligt lägst.
+
+-   **Inget** tydligt samband mellan rabatt och ordervärde, krävs andra
+    variabler för att hitta eventuella mönster.
+
+Nästa steg kan vara att göra djupare analys kring köpmönster runt
+kampanjer(rabatt) och tidsanalyser för att t.ex. bestämma när kampanjer
+har störst effekt. Vinstmarginalen behöver även undersökas för att se om
+hög försäljning även innebär större vinst.
+
+Resultaten kan användas som underlag för beslut kring exempelvis riktad
+marknadsföring, lagerhållning och produktstrategi.
