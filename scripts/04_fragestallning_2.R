@@ -29,7 +29,7 @@ corporate <- data_clean_customer_segment$avg_order_value[3]
 
 #Skapar stapeldiagram över ordervärde per kundsegment
 #Sorterar segmenten från lägst till högst
-ggplot(data_clean_customer_segment,
+order_value_by_segment_viz <- ggplot(data_clean_customer_segment,
        aes(x = reorder(customer_segment, avg_order_value),
            y = avg_order_value,
            fill = customer_segment)) +
@@ -39,9 +39,9 @@ ggplot(data_clean_customer_segment,
     x = "Kundsegment",
     y = "Genomsnittligt ordervärde"
   ) +
-  theme_minimal() 
+  theme_minimal()
   
-
+order_value_by_segment_viz
 
 
 
