@@ -135,7 +135,22 @@ en egenformulerad.
 4.  Vilka produktkategorier har högst försäljning hos de olika
     kundsegmenten? (egen frågeställning)
 
-Nedan förljer en sammanfattning för varje vald frågeställning som
+De valda frågeställningarna fokuserar på att analysera försäljning,
+vilket är företagets mest centrala funktion. Genom att undersöka vilka
+produktkategorier och kundsegment som driver högst försäljning kan
+företaget identifiera sina viktigaste intäktskällor.
+
+Att analysera sambandet mellan rabatt och ordervärde kan ge insikter om
+kundernas köpbeteende och detta är viktigt för att kunna optimera
+prissättning och kampanjer.
+
+Den egna frågeställningen valdes för att komplettera analysen och ge
+ytterligare förståelse för faktorer som kan påverka försäljningen.
+Tillsammans bidrar dessa frågeställningar till en helhetsbild av
+företagets försäljning och kundbeteende vilket kan användas som underlag
+för strategiska beslut.
+
+Nedan följer en sammanfattning för varje vald frågeställning som
 inkluderar metod, resultat samt slutsatser och eventuella begränsningar.
 
 #### **1. Vilka produktkategorier verkar driva högst försäljning?**
@@ -270,26 +285,41 @@ vinstmarginal.
 
 #### **Slutsats och sammanfattning**
 
-Med hjälp av våra fyra frågeställningar kunde vi få en tydlig inblick i
-köpmönster hos olika typer av kunder.
+Analysen visar att försäljningen i stor utsträckning drivs av specifika
+produktkategorier och kundsegment, snarare än rabatter. Med hjälp av
+våra fyra frågeställningar kunde vi få en tydlig inblick i köpmönster
+hos olika typer av kunder.
 
 -   **Electronics** har högst försäljning med stor marginal, följt av
-    **Home** och **Sports**.
+    **Home** och **Sports**, vilket visar att dessa kategorier är
+    företagets viktigaste intäktsdrivare.
 
 -   **Electronics** är också den klart starkaste kategorin bland alla
-    typer av kunder. Tydligaste skillnaderna ses bland **Home**- och
-    **Fashion-produkter** mellan **Small Business** och **Corporate**.
+    typer av kunder, vilket tyder på en stabil efterfrågan oavsett
+    kundsegment. De tydligaste skillnaderna ses bland **Home**- och
+    **Fashion-produkter** mellan **Small Business** och **Corporate**,
+    vilket indikerar att olika kundgrupper bidrar olika mycket till
+    försäljningen beroende på produktkategori.
 
 -   **Small Business** har det högsta genomsnittliga ordervärdet, följt
-    av **Consumer**, medan **Corporate** ligger tydligt lägst.
+    av **Consumer**, medan **Corporate** ligger tydligt lägst. Detta
+    innebär att **Small Business** är en särskilt värdefull kundgrupp ur
+    ett försäljningsperspektiv då de bidrar mest per köp.
 
--   **Inget** tydligt samband mellan rabatt och ordervärde, krävs andra
-    variabler för att hitta eventuella mönster.
+-   **Inget** tydligt samband mellan rabatt och ordervärde, vilket
+    typder på att rabatter inte är en avgörande faktor för att öka
+    försäljningen i detta dataset.
+
+Det är dock viktigt att notera att hög försäljning inte nödvändigtvis
+innebär hög lönsamhet, vilket gör det relevant att i framtida analyser
+även inkludera vinstmarginaler.
 
 Nästa steg kan vara att göra djupare analys kring köpmönster runt
-kampanjer(rabatt) och tidsanalyser för att t.ex. bestämma när kampanjer
-har störst effekt. Vinstmarginalen behöver även undersökas för att se om
-hög försäljning även innebär större vinst.
+kampanjer (rabatt) och tidsanalyser för att identifiera när och varför
+försäljningen är som högst. Detta kan ge ytterligare insikter om hur
+försäljningen kan optimeras.
 
-Resultaten kan användas som underlag för beslut kring exempelvis riktad
-marknadsföring, lagerhållning och produktstrategi.
+Resultaten visar att företaget för fokusera på att stärka de mest
+lönsamma produktkategorierna samt rikta sina insatser mot kundsegment
+med högt ordervärde. Detta kan bidra till att maximera försäljningen
+snarare än att enbart öka volymen genom rabatter.
