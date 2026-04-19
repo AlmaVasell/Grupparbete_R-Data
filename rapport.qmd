@@ -306,8 +306,8 @@ hos olika typer av kunder.
     innebär att **Small Business** är en särskilt värdefull kundgrupp ur
     ett försäljningsperspektiv då de bidrar mest per köp.
 
--   **Inget** tydligt samband mellan rabatt och ordervärde, vilket
-    typder på att rabatter inte är en avgörande faktor för att öka
+-   **Inget** tydligt samband mellan rabatt och ordervärde, vilket tyder
+    på att rabatter inte är en avgörande faktor för att öka
     försäljningen i detta dataset.
 
 Det är dock viktigt att notera att hög försäljning inte nödvändigtvis
@@ -319,7 +319,7 @@ kampanjer (rabatt) och tidsanalyser för att identifiera när och varför
 försäljningen är som högst. Detta kan ge ytterligare insikter om hur
 försäljningen kan optimeras.
 
-Resultaten visar att företaget för fokusera på att stärka de mest
+Resultaten visar att företaget bör fokusera på att stärka de mest
 lönsamma produktkategorierna samt rikta sina insatser mot kundsegment
 med högt ordervärde. Detta kan bidra till att maximera försäljningen
 snarare än att enbart öka volymen genom rabatter.
