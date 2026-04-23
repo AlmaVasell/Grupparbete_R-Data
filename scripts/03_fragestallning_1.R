@@ -19,12 +19,6 @@ sales_by_category
 
 
 # Visualisering 1: Total försäljning
-sales_by_category_viz <- ggplot(
-  sales_by_category,
-  aes(x = reorder(product_category, total_sales), y = total_sales)
-) +
-
-# Visualiseringar
 sales_by_category_viz <-  ggplot(sales_by_category, aes(x = reorder(product_category, total_sales), y = total_sales)) +
 
   geom_col(fill = "#0F4C5C") +
@@ -54,15 +48,5 @@ orders_by_category_viz <- ggplot(
 
 orders_by_category_viz
 
-orders_by_category_viz <- ggplot(sales_by_category, aes(x = reorder(product_category, n_orders), y = n_orders)) +
-    geom_col(fill = "#0F4C5C") +
-    coord_flip() +
-    labs(
-      title = "Antal ordrar per produktkategori",
-      x = "Produktkategori",
-      y = "Antal ordrar"
-    )
-
-orders_by_category_viz
 
 
