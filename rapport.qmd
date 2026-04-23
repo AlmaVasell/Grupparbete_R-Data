@@ -248,7 +248,7 @@ mellan enbart dessa två variabler.
 
 Fler variabler krävs för att förstår vad som påverkar rabattvärde.
 Extremvärden ger även en skev bild av meddelvärdet som inte motsvarar
-kunderas beteende. (Medelvärde -338, Median -165)
+kunderas beteende. (Medelvärde -315, Median -152)
 
 #### **4. Vilka produktkategorier har högst försäljning hos de olika kundsegmenten?**
 
@@ -320,6 +320,6 @@ försäljningen är som högst. Detta kan ge ytterligare insikter om hur
 försäljningen kan optimeras.
 
 Resultaten visar att företaget bör fokusera på att stärka de mest
-lönsamma produktkategorierna samt rikta sina insatser mot kundsegment
+intäktsdrivande produktkategorierna samt rikta sina insatser mot kundsegment
 med högt ordervärde. Detta kan bidra till att maximera försäljningen
 snarare än att enbart öka volymen genom rabatter.
